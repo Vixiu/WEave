@@ -77,16 +77,17 @@ export default function Pagination({ page, totalPages, onChange, infoText }: Pro
           <ChevronLeft className="size-4" />
         </button>
         
-        <div className="flex min-w-20 items-center justify-center gap-1 px-6 text-[11px] font-medium text-foreground/80">
+        <div className="flex items-center justify-center gap-2 px-6 text-[11px] font-medium text-foreground/80">
           <input
             type="text"
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
             onKeyDown={handleInputKeyDown}
-            className="w-6 bg-transparent text-center font-bold text-foreground placeholder-white/30 selection:bg-primary/50 focus:outline-none"
+            className="w-7 bg-transparent text-center font-bold text-foreground placeholder-white/30 selection:bg-primary/50 focus:outline-none"
           />
-          <span className="opacity-50">/ {safeTotal}</span>
+          <span className="opacity-50">/</span>
+          <span className="opacity-50">{safeTotal}</span>
         </div>
 
         <button

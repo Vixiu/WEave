@@ -170,6 +170,15 @@ pub fn app_restore_window_geometry(
     Ok(true)
 }
 
+/// Show the main window once frontend has rendered to avoid white/blank flashing on startup.
+#[command]
+pub fn app_show_main_window(app: AppHandle) {
+    if let Some(window) = app.get_webview_window("main") {
+        let _ = window.show();
+        let _ = window.set_focus();
+    }
+}
+
 /// Run the metadata batch initializer. Mirrors the Python
 /// `MetadataBatchInitializer` — for every installed wallpaper that does
 /// not yet have full metadata, fetch the workshop page and persist the

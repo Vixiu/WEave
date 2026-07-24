@@ -82,6 +82,7 @@ pub fn run() {
             commands::app::app_get_window_geometry,
             commands::app::app_save_window_geometry,
             commands::app::app_restore_window_geometry,
+            commands::app::app_show_main_window,
             commands::app::app_init_metadata,
             commands::app::app_cancel_init_metadata,
             commands::config::config_get_all,

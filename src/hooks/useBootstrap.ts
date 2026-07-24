@@ -97,8 +97,12 @@ export function useBootstrap() {
       // settles. Kept fire-and-forget so it never blocks the rest of boot.
       void syncSteamSession();
 
-      // Restore saved window geometry if the feature is on.
-      void invoke("app_restore_window_geometry").catch(() => undefined);
+      // Restore saved window geometry if the feature is on, then show main window once ready.
+      void invoke("app_restore_window_geometry")
+        .then(() => invoke("app_show_main_window"))
+        .catch(() => {
+          void invoke("app_show_main_window").catch(() => undefined);
+        });
 
       // Auto-check for updates on startup if enabled.
       void maybeCheckForUpdates();

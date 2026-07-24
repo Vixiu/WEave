@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "@/i18n/hooks";
-import { Trash2, RefreshCw } from "lucide-react";
+import { Trash2, RefreshCw, Terminal } from "lucide-react";
 
 import Dialog from "@/components/common/Dialog";
 import { tryInvoke, tryInvokeOk } from "@/lib/tauri";
@@ -59,7 +59,12 @@ export default function ParserDebugDialog({
         if (!o) onClose();
       }}
       size="lg"
-      title={t("settings.parser_log") || "Parser log"}
+      title={
+        <div className="flex items-center gap-2">
+          <Terminal size={18} className="text-primary" />
+          <span>{t("settings.parser_log") || "Parser log"}</span>
+        </div>
+      }
     >
       <div className="flex items-center justify-between border-b border-border px-4 py-2">
         <div className="text-sm font-medium">

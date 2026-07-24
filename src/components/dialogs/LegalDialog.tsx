@@ -4,7 +4,6 @@ import { openUrl as openExternal } from "@tauri-apps/plugin-opener";
 import { AlertTriangle, ExternalLink, FileText } from "lucide-react";
 
 import Dialog from "@/components/common/Dialog";
-import Markdown from "@/components/common/Markdown";
 
 interface Props {
   open: boolean;
@@ -12,16 +11,6 @@ interface Props {
   requireAccept?: boolean;
   onAccept?: () => void;
 }
-
-const MIT_LICENSE = `## MIT License
-
-Copyright © 2026 WEave
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.**`;
 
 export default function LegalDialog({
   open,
@@ -128,8 +117,18 @@ export default function LegalDialog({
           )}
 
           {activeTab === "license" && (
-            <div className="prose prose-sm dark:prose-invert max-w-none">
-              <Markdown source={MIT_LICENSE} />
+            <div className="prose prose-sm dark:prose-invert max-w-none space-y-3 text-sm">
+              <h3 className="text-base font-semibold">MIT License</h3>
+              <p className="text-muted">Copyright © 2026 WEave</p>
+              <p>
+                Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+              </p>
+              <p>
+                The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+              </p>
+              <p className="text-xs font-semibold leading-relaxed text-muted">
+                THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+              </p>
               <div className="mt-6 flex flex-wrap items-center gap-1.5 border-t border-border pt-4 text-xs text-muted">
                 <span>{t("legal.third_party_notice_text")}</span>
                 <button

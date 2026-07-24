@@ -35,6 +35,8 @@ import {
   pageLast,
 } from "@/stores/hotkeys/pagination";
 
+import { useUpdaterStore } from "@/stores/updater";
+
 export default function App() {
   useBootstrap();
   useApplyTheme();
@@ -47,7 +49,14 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [multiOpen, setMultiOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
-  const [updateOpen, setUpdateOpen] = useState(false);
+  const updateDialogOpen = useUpdaterStore((s) => s.dialogOpen);
+  const setUpdateDialogOpen = (open: boolean) => {
+    if (open) {
+      useUpdaterStore.getState().openDialog();
+    } else {
+      useUpdaterStore.getState().closeDialog();
+    }
+  };
   const tasksOpen = useAppStore((s) => s.tasksOpen);
   const setTasksOpen = useAppStore((s) => s.setTasksOpen);
   const [legalOpen, setLegalOpen] = useState(false);
@@ -196,10 +205,10 @@ export default function App() {
         <InfoDialog
           open={infoOpen}
           onOpenChange={setInfoOpen}
-          onCheckUpdates={() => setUpdateOpen(true)}
+          onCheckUpdates={() => setUpdateDialogOpen(true)}
           onOpenLegal={() => setLegalOpen(true)}
         />
-        <UpdateDialog open={updateOpen} onOpenChange={setUpdateOpen} />
+        <UpdateDialog open={updateDialogOpen} onOpenChange={setUpdateDialogOpen} />
         <TasksDrawer open={tasksOpen} onOpenChange={setTasksOpen} />
         <LegalDialog
           open={legalOpen}

@@ -47,6 +47,18 @@ export default function Dialog({
             <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4">
               <RadixDialog.Content
                 asChild
+                onOpenAutoFocus={(e) => {
+                  e.preventDefault();
+                  if (document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                  }
+                }}
+                onCloseAutoFocus={(e) => {
+                  e.preventDefault();
+                  if (document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
+                  }
+                }}
               >
                 <motion.div
                   initial={{ opacity: 0, y: 8, scale: 0.97 }}
@@ -54,7 +66,7 @@ export default function Dialog({
                   exit={{ opacity: 0, y: 8, scale: 0.97 }}
                   transition={{ duration: 0.18, ease: [0.2, 0.8, 0.2, 1] }}
                   className={cn(
-                    "pointer-events-auto relative flex max-h-[calc(100vh-2rem)] w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-surface/60 shadow-[0_16px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl",
+                    "pointer-events-auto relative flex max-h-[calc(100vh-2rem)] w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-surface/60 shadow-[0_16px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
                     SIZES[size],
                   )}
                 >

@@ -12,6 +12,7 @@ export default {
     no: "Нет",
     open_data_folder: "Открыть папку данных",
     check_updates: "Проверить обновления",
+    download_release: "Скачать и релиз на GitHub",
     changelog: "История изменений",
     view_on_github: "Открыть на GitHub",
     refresh: "Обновить",

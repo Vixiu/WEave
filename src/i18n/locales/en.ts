@@ -12,6 +12,7 @@ export default {
     no: "No",
     open_data_folder: "Open Data folder",
     check_updates: "Check for updates",
+    download_release: "Download & Release Notes",
     changelog: "Changelog",
     view_on_github: "View on GitHub",
     refresh: "Refresh",

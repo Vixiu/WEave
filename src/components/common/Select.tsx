@@ -35,11 +35,20 @@ export default function Select({
     <RadixSelect.Root
       value={normalized}
       onValueChange={(v) => onValueChange(v === EMPTY_SENTINEL ? "" : v)}
+      onOpenChange={(open) => {
+        if (!open) {
+          setTimeout(() => {
+            if (document.activeElement instanceof HTMLElement) {
+              document.activeElement.blur();
+            }
+          }, 0);
+        }
+      }}
     >
       <RadixSelect.Trigger
         id={id}
         className={cn(
-          "flex min-w-30 items-center gap-2 rounded-md border border-border bg-surface-sunken px-3 py-2 text-sm outline-none hover:border-border-strong focus:ring-2 focus:ring-primary/30",
+          "flex min-w-30 items-center gap-2 rounded-md border border-border bg-surface-sunken px-3 py-2 text-sm outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 hover:border-border-strong",
           className,
         )}
       >

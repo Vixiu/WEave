@@ -54,12 +54,10 @@ const ACTION_GROUPS: {
 function KeyCapture({
   value,
   onChange,
-  label,
   t,
 }: {
   value: string | null;
   onChange: (key: string | null) => void;
-  label: string;
   t: (key: any, params?: Record<string, string | number>) => string;
 }) {
   const [capturing, setCapturing] = useState(false);
@@ -143,11 +141,6 @@ function KeyCapture({
           ? "animate-pulse border-primary bg-primary/10 text-primary"
           : "border-border bg-surface-sunken text-foreground hover:border-primary/50",
       )}
-      title={
-        capturing
-          ? t("settings.hotkeys_press_key_for", { label })
-          : t("settings.hotkeys_click_to_change")
-      }
     >
       {capturing ? (
         <span className="flex items-center gap-1.5">
@@ -211,14 +204,12 @@ function HotkeyRow({
       <KeyCapture
         value={b.primary}
         onChange={onSetPrimary}
-        label={label}
         t={t}
       />
 
       <KeyCapture
         value={b.secondary}
         onChange={onSetSecondary}
-        label={`${label} (secondary)`}
         t={t}
       />
 

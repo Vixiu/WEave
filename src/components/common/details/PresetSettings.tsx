@@ -190,8 +190,9 @@ export default function PresetSettings({ item, open }: PresetSettingsProps) {
               } else {
                 handleChange(key, parseInt(val, 10));
               }
+              e.target.blur();
             }}
-            className="w-full cursor-pointer appearance-none rounded-md border border-white/5 bg-black/40 px-3 py-1.5 text-sm text-foreground shadow-sm backdrop-blur-xl transition-colors hover:bg-black/60 focus:ring-1 focus:ring-primary focus:outline-none"
+            className="w-full cursor-pointer appearance-none rounded-md border border-white/5 bg-black/40 px-3 py-1.5 text-sm text-foreground shadow-sm backdrop-blur-xl transition-colors hover:bg-black/60 focus:outline-none focus:ring-0"
           >
             {options.map((opt: string, i: number) => {
               const optVal = optionValues ? optionValues[i] : i;

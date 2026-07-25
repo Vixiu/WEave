@@ -109,6 +109,25 @@ async function formatDetailedChangelog(rawEntries) {
 
     if (!subject) continue;
 
+    // Comprehensive filter for technical, administrative, merge, revert, and release commits
+    const lowerSubj = subject.toLowerCase();
+    if (
+      lowerSubj.startsWith("merge ") ||
+      lowerSubj.startsWith("merge pull request") ||
+      lowerSubj.startsWith("merge branch") ||
+      lowerSubj.startsWith("merge remote-tracking branch") ||
+      lowerSubj.startsWith("merge tag") ||
+      lowerSubj.startsWith("fixup!") ||
+      lowerSubj.startsWith("squash!") ||
+      lowerSubj.startsWith("wip:") ||
+      lowerSubj === "wip" ||
+      lowerSubj === "initial commit" ||
+      lowerSubj.startsWith("chore(release)") ||
+      lowerSubj.startsWith("bump version to")
+    ) {
+      continue;
+    }
+
     // Parse conventional commit: type(scope): message
     const match = subject.match(/^(\w+)(?:\(([^)]+)\))?:\s*(.+)$/);
     if (!match) continue;
@@ -116,12 +135,6 @@ async function formatDetailedChangelog(rawEntries) {
     const rawType = match[1].toLowerCase();
     const scope = match[2] || null;
     let title = match[3];
-
-    // Filter out release commits
-    if (rawType === "chore" && title.startsWith("bump version to")) {
-      continue;
-    }
-
     const catName = categories[rawType] || "Changed";
     if (!grouped[catName]) {
       grouped[catName] = [];

@@ -3,32 +3,30 @@
 ## [4.11.0] - 2026-07-24
 
 ### Added
-- Combined "Download & Release Notes" action button in the update dialog.
-- Header icons for UpdateDialog and ParserDebugDialog.
+- Direct button to download updates and view release notes on GitHub from the update dialog.
 
 ### Fixed
-- Fixed automatic update modal popup on startup when a new release is available.
-- Prevented blank window flash on application launch by holding window visibility until React UI is ready.
-- Fixed unexpected focus rings on dialog opening and closing.
+- Prevented a brief blank window flash when launching the application.
+- Fixed update detection on startup to reliably display the update dialog whenever a new version is available.
 
-### Changed
-- Streamlined UpdateDialog by removing release notes details and custom Markdown dependencies.
-- Added NOTICE.md for third-party license compliance.
+### Improved
+- Polished UI elements including cleaner dropdown outlines, improved pagination spacing, and simplified hotkey tooltips.
+- Updated Legal and Info dialogs to include comprehensive third-party software licensing details.
 
 <details><summary>Detailed Changelog</summary>
 
 ### Added
-- feat(updater): Improve update dialog, auto-check flow and focus handling ([edc286c](https://github.com/psyattack/WEave/commit/edc286c))
+- feat(updater): Improve update dialog, auto-check flow and focus handling ([edc286c](https://github.com/psyattack/WEave/commit/edc286c)) by @psyattack
 
 ### Changed
-- chore(release): bump version to 4.11.0 ([3ec8041](https://github.com/psyattack/WEave/commit/3ec8041))
-- style(pagination): Improve spacing around page slash separator ([1ca2259](https://github.com/psyattack/WEave/commit/1ca2259))
-- style(ui): Remove focus outline from selects and tooltip from hotkeys ([2fb28dd](https://github.com/psyattack/WEave/commit/2fb28dd))
-- refactor(dialogs): Update Legal and Info dialogs and add NOTICE.md ([73607bc](https://github.com/psyattack/WEave/commit/73607bc))
-- chore: remove knip from repository ([1189551](https://github.com/psyattack/WEave/commit/1189551))
+- chore(release): bump version to 4.11.0 ([3ec8041](https://github.com/psyattack/WEave/commit/3ec8041)) by @psyattack
+- style(pagination): Improve spacing around page slash separator ([1ca2259](https://github.com/psyattack/WEave/commit/1ca2259)) by @psyattack
+- style(ui): Remove focus outline from selects and tooltip from hotkeys ([2fb28dd](https://github.com/psyattack/WEave/commit/2fb28dd)) by @psyattack
+- refactor(dialogs): Update Legal and Info dialogs and add NOTICE.md ([73607bc](https://github.com/psyattack/WEave/commit/73607bc)) by @psyattack
+- chore: remove knip from repository ([1189551](https://github.com/psyattack/WEave/commit/1189551)) by @psyattack
 
 ### Fixed
-- fix(window): Prevent blank window flash on app startup ([406ff22](https://github.com/psyattack/WEave/commit/406ff22))
+- fix(window): Prevent blank window flash on app startup ([406ff22](https://github.com/psyattack/WEave/commit/406ff22)) by @psyattack
 
 </details>
 
@@ -44,11 +42,11 @@
 <details><summary>Detailed Changelog</summary>
 
 ### Changed
-- chore(release): bump version to 4.10.3 ([78219c8](https://github.com/psyattack/WEave/commit/78219c8))
-- ci(release): skip version header in generated release body ([eac2d0a](https://github.com/psyattack/WEave/commit/eac2d0a))
-- chore(release): bump version to 4.10.2 ([bfa471d](https://github.com/psyattack/WEave/commit/bfa471d))
-- ci: add GitHub Actions workflows for CI and release ([ed6ce39](https://github.com/psyattack/WEave/commit/ed6ce39))
-- docs(readme): Update features description and formatting ([9b68fb1](https://github.com/psyattack/WEave/commit/9b68fb1))
-- chore: Update documentation structure and filter cookie store logs ([dde6819](https://github.com/psyattack/WEave/commit/dde6819))
+- chore(release): bump version to 4.10.3 ([78219c8](https://github.com/psyattack/WEave/commit/78219c8)) by @psyattack
+- ci(release): skip version header in generated release body ([eac2d0a](https://github.com/psyattack/WEave/commit/eac2d0a)) by @psyattack
+- chore(release): bump version to 4.10.2 ([bfa471d](https://github.com/psyattack/WEave/commit/bfa471d)) by @psyattack
+- ci: add GitHub Actions workflows for CI and release ([ed6ce39](https://github.com/psyattack/WEave/commit/ed6ce39)) by @psyattack
+- docs(readme): Update features description and formatting ([9b68fb1](https://github.com/psyattack/WEave/commit/9b68fb1)) by @psyattack
+- chore: Update documentation structure and filter cookie store logs ([dde6819](https://github.com/psyattack/WEave/commit/dde6819)) by @psyattack
 
 </details>

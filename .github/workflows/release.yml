@@ -2,24 +2,9 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
   workflow_dispatch:
-    inputs:
-      release_title:
-        description: 'Custom Release Title (leave empty for default: "WEave vX.Y.Z")'
-        required: false
-        type: string
-      is_draft:
-        description: 'Publish as Draft'
-        required: false
-        type: boolean
-        default: false
-      is_prerelease:
-        description: 'Publish as Pre-release'
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -27,7 +12,7 @@ permissions:
   attestations: write
 
 jobs:
-  publish-tauri:
+  release:
     name: Build & Publish Release
     runs-on: windows-latest
     steps:
@@ -53,19 +38,6 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
 
-      - name: Determine Version & Title
-        id: version_info
-        shell: powershell
-        run: |
-          $ver = (Get-Content package.json | ConvertFrom-Json).version
-          echo "VERSION=$ver" >> $env:GITHUB_OUTPUT
-          
-          $customTitle = "${{ github.event.inputs.release_title }}"
-          if ([string]::IsNullOrWhiteSpace($customTitle)) {
-              $customTitle = "WEave v$ver"
-          }
-          echo "TITLE=$customTitle" >> $env:GITHUB_OUTPUT
-
       - name: Build Tauri App
         run: npm run tauri build
 
@@ -73,7 +45,7 @@ jobs:
         id: prepare_artifacts
         shell: powershell
         run: |
-          $ver = "${{ steps.version_info.outputs.VERSION }}"
+          $ver = (Get-Content package.json | ConvertFrom-Json).version
           $distDir = "dist_artifacts"
           New-Item -ItemType Directory -Force -Path $distDir
 
@@ -101,48 +73,12 @@ jobs:
               Write-Host "Created $zipTarget"
           }
 
-      - name: Extract Release Notes from CHANGELOG.md
-        id: changelog
-        shell: powershell
-        run: |
-          $latestTagNotes = ""
-          if (Test-Path "CHANGELOG.md") {
-              $lines = Get-Content "CHANGELOG.md"
-              $extracted = @()
-              $started = $false
-              foreach ($line in $lines) {
-                  if ($line -match '^##\s+\[?v?\d+') {
-                      if ($started) { break }
-                      $started = $true
-                      continue
-                  }
-                  if ($started) {
-                      $extracted += $line
-                  }
-              }
-              $latestTagNotes = ($extracted -join "`n").Trim()
-          }
-
-          if (-not $latestTagNotes) {
-              $latestTagNotes = "Release v${{ steps.version_info.outputs.VERSION }}"
-          }
-
-          [System.IO.File]::WriteAllText("CHANGELOG_GENERATED.md", $latestTagNotes, [System.Text.Encoding]::UTF8)
-
       - name: Attest Build Artifacts
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: 'dist_artifacts/*'
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.version_info.outputs.VERSION }}
-          name: "${{ steps.version_info.outputs.TITLE }}"
-          body_path: CHANGELOG_GENERATED.md
-          draft: ${{ github.event.inputs.is_draft || false }}
-          prerelease: ${{ github.event.inputs.is_prerelease || false }}
-          files: |
-            dist_artifacts/*
+      - name: Run Semantic Release
+        run: npx --yes -p semantic-release -p @semantic-release/commit-analyzer -p @semantic-release/release-notes-generator -p @semantic-release/changelog -p @semantic-release/exec -p @semantic-release/git -p @semantic-release/github -p conventional-changelog-conventionalcommits semantic-release --extends ./.github/.releaserc.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

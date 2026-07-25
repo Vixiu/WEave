@@ -99,7 +99,7 @@ export default function UpdateDialog({ open, onOpenChange }: Props) {
                 </p>
                 <div className="mt-3 flex gap-2">
                   <button
-                    className="btn-primary flex-1 flex items-center justify-center gap-2"
+                    className="btn-primary flex flex-1 items-center justify-center gap-2"
                     onClick={() => {
                       const url =
                         info.html_url ||

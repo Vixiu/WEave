@@ -66,7 +66,7 @@ export default function Dialog({
                   exit={{ opacity: 0, y: 8, scale: 0.97 }}
                   transition={{ duration: 0.18, ease: [0.2, 0.8, 0.2, 1] }}
                   className={cn(
-                    "pointer-events-auto relative flex max-h-[calc(100vh-2rem)] w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-surface/60 shadow-[0_16px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl outline-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
+                    "pointer-events-auto relative flex max-h-[calc(100vh-2rem)] w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-surface/60 shadow-[0_16px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl outline-none focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none",
                     SIZES[size],
                   )}
                 >

@@ -11,7 +11,7 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "bump": "node version.mjs"
+    "bump": "node .github/scripts/bump.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.17",

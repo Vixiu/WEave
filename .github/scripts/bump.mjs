@@ -2,13 +2,13 @@
 
 /**
  * Usage:
- *   node version.mjs 4.5.0
+ *   node .github/scripts/bump.mjs 4.5.0
  *
  * Updates the version string in all four locations:
  *   1. package.json
  *   2. src-tauri/Cargo.toml
  *   3. src-tauri/tauri.conf.json
- *   4. src-tauri/src/constants.rs
+ *   4. src-tauri/src/core/constants.rs
  *
  * Then runs:
  *   - `npm install --package-lock-only` to sync package-lock.json
@@ -22,7 +22,7 @@ const newVersion = process.argv[2];
 
 if (!newVersion || !/^\d+\.\d+\.\d+/.test(newVersion)) {
   console.error(
-    "Usage: node version.mjs <semver>  (e.g. node version.mjs 4.5.0)",
+    "Usage: node .github/scripts/bump.mjs <semver>  (e.g. node .github/scripts/bump.mjs 4.5.0)",
   );
   process.exit(1);
 }

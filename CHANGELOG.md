@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.11.1](https://github.com/psyattack/WEave/compare/v4.11.0...v4.11.1) - 2026-07-25
+
+### Fixed
+- Fixed an issue where selecting an option from a dropdown menu in Settings would unexpectedly close the entire dialog.
+
+<details><summary>Detailed Changelog</summary>
+
+### Changed
+- **release:** Switch release workflow to tag-based GitHub releases (by @psyattack in https://github.com/psyattack/WEave/commit/830e16c)
+- **ci:** Integrate semantic-release and refactor bump script (by @psyattack in https://github.com/psyattack/WEave/commit/c4bde98)
+- **release:** Extract release notes directly from CHANGELOG.md (by @psyattack in https://github.com/psyattack/WEave/commit/ac0d1ed)
+
+### Fixed
+- **settings:** Prevent select dropdown from closing parent dialog (by @psyattack in https://github.com/psyattack/WEave/commit/62b4c1e)
+
+</details>
+
 ## [4.11.0] - 2026-07-24
 
 ### Added

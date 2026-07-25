@@ -157,7 +157,7 @@ async function formatDetailedChangelog(rawEntries) {
   let markdown = "<details><summary>Detailed Changelog</summary>\n\n";
   for (let i = 0; i < categoryKeys.length; i++) {
     const cat = categoryKeys[i];
-    markdown += `### ${cat}\n\n`;
+    markdown += `### ${cat}\n`;
     for (const item of grouped[cat]) {
       markdown += `${item}\n`;
     }
@@ -312,7 +312,7 @@ async function main() {
     }
   } else {
     // Create new version section with Detailed Changelog
-    const newSection = `${header}\n\n${detailedChangelog ? detailedChangelog.trim() + "\n\n" : ""}`;
+    const newSection = `${header}\n\n${detailedChangelog ? detailedChangelog.trim() + "\n" : ""}`;
     if (/# Changelog\r?\n/.test(changelogContent)) {
       changelogContent = changelogContent.replace(
         /# Changelog\r?\n/,

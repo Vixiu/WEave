@@ -1,6 +1,6 @@
 import * as RadixSelect from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,7 @@ interface Props {
   placeholder?: string;
   className?: string;
   icon?: ReactNode;
+  closeOnSelectionOnly?: boolean;
 }
 
 const EMPTY_SENTINEL = "__empty__";
@@ -29,19 +30,25 @@ export default function Select({
   placeholder,
   className,
   icon,
+  closeOnSelectionOnly = false,
 }: Props) {
   const normalized = value === "" ? EMPTY_SENTINEL : value;
+  const [open, setOpen] = useState(false);
   return (
     <RadixSelect.Root
       value={normalized}
-      onValueChange={(v) => onValueChange(v === EMPTY_SENTINEL ? "" : v)}
-      onOpenChange={(open) => {
-        if (!open) {
-          setTimeout(() => {
-            if (document.activeElement instanceof HTMLElement) {
-              document.activeElement.blur();
-            }
-          }, 0);
+      open={open}
+      onValueChange={(v) => {
+        onValueChange(v === EMPTY_SENTINEL ? "" : v);
+        setOpen(false);
+      }}
+      onOpenChange={(newOpen) => {
+        if (closeOnSelectionOnly) {
+          if (newOpen) {
+            setOpen(true);
+          }
+        } else {
+          setOpen(newOpen);
         }
       }}
     >
@@ -61,12 +68,21 @@ export default function Select({
           position="popper"
           sideOffset={6}
           className="z-50 min-w-40 overflow-hidden rounded-md border border-border bg-surface shadow-card-hover"
+          onPointerDownOutside={(e) => {
+            if (closeOnSelectionOnly) e.preventDefault();
+          }}
         >
           <RadixSelect.Viewport className="p-1">
             {options.map((opt) => (
               <RadixSelect.Item
                 key={opt.value || EMPTY_SENTINEL}
                 value={opt.value === "" ? EMPTY_SENTINEL : opt.value}
+                onPointerUp={() => setOpen(false)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setOpen(false);
+                  }
+                }}
                 className="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none data-highlighted:bg-surface-raised"
               >
                 <RadixSelect.ItemIndicator className="size-4">

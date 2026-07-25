@@ -142,19 +142,15 @@ npm run tauri build
 npm run test  # Тесты frontend
 cd src-tauri && cargo test  # Тесты backend
 
-# Проверки backend (личная рекомендация)
+# Проверки backend
 cargo check
-cargo machete
-cargo clippy -- -W dead_code
-cargo +nightly udeps
 
-# Проверки frontend (личная рекомендация)
-npx knip
+# Проверки frontend
 npm run typecheck
 npm run lint
 
-# Сменить версию
-npm run bump -- <semver>
+# Bump
+npm run bump
 ```
 
 </details>

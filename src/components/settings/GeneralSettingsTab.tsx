@@ -93,6 +93,7 @@ export default function GeneralSettingsTab() {
             onValueChange={(v) => {
               void changeLanguageTo(v);
             }}
+            closeOnSelectionOnly
           />
         )}
         {renderRow(
@@ -106,6 +107,7 @@ export default function GeneralSettingsTab() {
               state.setTheme(v as ThemeCode);
               void persistTheme(v as ThemeCode);
             }}
+            closeOnSelectionOnly
           />
         )}
         {renderRow(

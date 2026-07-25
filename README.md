@@ -148,6 +148,9 @@ cargo check
 # Checks frontend
 npm run typecheck
 npm run lint
+
+# Bump
+npm run bump
 ```
 
 </details>

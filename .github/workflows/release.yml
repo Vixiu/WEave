@@ -101,76 +101,10 @@ jobs:
               Write-Host "Created $zipTarget"
           }
 
-      - name: Generate Conventional Changelog
+      - name: Extract Release Notes from CHANGELOG.md
         id: changelog
         shell: powershell
         run: |
-          $prevTag = git describe --tags --abbrev=0 HEAD^ 2>$null
-          if ($prevTag) {
-              $logRange = "$prevTag..HEAD"
-          } else {
-              $logRange = "HEAD"
-          }
-
-          $commits = git log $logRange --pretty=format:"%h|%s|%an"
-          
-          $added = @()
-          $changed = @()
-          $deprecated = @()
-          $removed = @()
-          $fixed = @()
-          $security = @()
-          $other = @()
-
-          foreach ($line in $commits -split "`n") {
-              if (-not $line) { continue }
-              $parts = $line -split "\|"
-              $hash = $parts[0]
-              $msg = $parts[1]
-              $author = $parts[2]
-              $commitUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/commit/$hash"
-              $formatted = "- $msg ([$hash]($commitUrl)) by @$author"
-
-              if ($msg -match "^feat(\(.*\))?:") {
-                  $added += $formatted
-              } elseif ($msg -match "^(fix|bugfix)(\(.*\))?:") {
-                  $fixed += $formatted
-              } elseif ($msg -match "^(sec|security)(\(.*\))?:") {
-                  $security += $formatted
-              } elseif ($msg -match "^(deprecate|deprecated)(\(.*\))?:") {
-                  $deprecated += $formatted
-              } elseif ($msg -match "^(remove|removed|revert)(\(.*\))?:") {
-                  $removed += $formatted
-              } elseif ($msg -match "^(refactor|perf|style|build|ci|chore|docs|change|changed)(\(.*\))?:") {
-                  $changed += $formatted
-              } else {
-                  $other += $formatted
-              }
-          }
-
-          $changelogText = ""
-          if ($added.Count -gt 0) {
-              $changelogText += "### Added`n" + ($added -join "`n") + "`n`n"
-          }
-          if ($changed.Count -gt 0) {
-              $changelogText += "### Changed`n" + ($changed -join "`n") + "`n`n"
-          }
-          if ($deprecated.Count -gt 0) {
-              $changelogText += "### Deprecated`n" + ($deprecated -join "`n") + "`n`n"
-          }
-          if ($removed.Count -gt 0) {
-              $changelogText += "### Removed`n" + ($removed -join "`n") + "`n`n"
-          }
-          if ($fixed.Count -gt 0) {
-              $changelogText += "### Fixed`n" + ($fixed -join "`n") + "`n`n"
-          }
-          if ($security.Count -gt 0) {
-              $changelogText += "### Security`n" + ($security -join "`n") + "`n`n"
-          }
-          if ($other.Count -gt 0) {
-              $changelogText += "### Other`n" + ($other -join "`n") + "`n`n"
-          }
-
           $latestTagNotes = ""
           if (Test-Path "CHANGELOG.md") {
               $lines = Get-Content "CHANGELOG.md"
@@ -189,17 +123,11 @@ jobs:
               $latestTagNotes = ($extracted -join "`n").Trim()
           }
 
-          $finalReleaseBody = ""
-          if ($latestTagNotes) {
-              $finalReleaseBody += "$latestTagNotes`n`n"
+          if (-not $latestTagNotes) {
+              $latestTagNotes = "Release v${{ steps.version_info.outputs.VERSION }}"
           }
 
-          $autoChangelog = $changelogText.Trim()
-          if ($autoChangelog) {
-              $finalReleaseBody += "<details><summary>Detailed Changelog</summary>`n`n$autoChangelog`n`n</details>"
-          }
-
-          [System.IO.File]::WriteAllText("CHANGELOG_GENERATED.md", $finalReleaseBody.Trim(), [System.Text.Encoding]::UTF8)
+          [System.IO.File]::WriteAllText("CHANGELOG_GENERATED.md", $latestTagNotes, [System.Text.Encoding]::UTF8)
 
       - name: Attest Build Artifacts
         uses: actions/attest-build-provenance@v2

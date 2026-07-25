@@ -8,12 +8,12 @@
 <details><summary>Detailed Changelog</summary>
 
 ### Changed
-- **release:** Switch release workflow to tag-based GitHub releases (by @psyattack in https://github.com/psyattack/WEave/commit/830e16c)
-- **ci:** Integrate semantic-release and refactor bump script (by @psyattack in https://github.com/psyattack/WEave/commit/c4bde98)
-- **release:** Extract release notes directly from CHANGELOG.md (by @psyattack in https://github.com/psyattack/WEave/commit/ac0d1ed)
+- **release:** Switch release workflow to tag-based GitHub releases (by @psyattack in 830e16c)
+- **ci:** Integrate semantic-release and refactor bump script (by @psyattack in c4bde98)
+- **release:** Extract release notes directly from CHANGELOG.md (by @psyattack in ac0d1ed)
 
 ### Fixed
-- **settings:** Prevent select dropdown from closing parent dialog (by @psyattack in https://github.com/psyattack/WEave/commit/62b4c1e)
+- **settings:** Prevent select dropdown from closing parent dialog (by @psyattack in 62b4c1e)
 
 </details>
 

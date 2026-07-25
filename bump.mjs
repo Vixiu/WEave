@@ -148,9 +148,9 @@ async function formatDetailedChangelog(rawEntries) {
     if (prMatch) {
       title = prMatch[1].trim();
       const prNum = prMatch[2];
-      linkStr = `${REPO_URL}/pull/${prNum}`;
+      linkStr = `#${prNum}`;
     } else {
-      linkStr = `${REPO_URL}/commit/${shortHash}`;
+      linkStr = shortHash;
     }
 
     const scopeStr = scope ? `**${scope}:** ` : "";

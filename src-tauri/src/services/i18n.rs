@@ -1,5 +1,5 @@
-//! Simplified i18n service that just returns available languages.
-//! All translation logic is now handled on the frontend with i18next.
+//! Simplified i18n service that returns available languages.
+//! Translation logic is handled on the frontend with i18next.
 
 pub struct I18nService;
 
@@ -18,6 +18,7 @@ impl I18nService {
         vec![
             ("en".into(), "English".into()),
             ("ru".into(), "Русский".into()),
+            ("zh".into(), "简体中文".into()),
         ]
     }
 }
